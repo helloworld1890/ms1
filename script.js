@@ -69,6 +69,7 @@ const brickInfo = {
     visible: true
 }
 
+//Looping through the Array 
 const bricks = [];
 for (let i = 0; i < brickRowCount; i++) {
         bricks[i] = [];
@@ -78,7 +79,7 @@ for (let j = 0; j < brickColumnCount; j++) {
         bricks[i][j] = { x, y, ...brickInfo }
     }
 }
-console.log(bricks)
+
 
 //showing the bricks on canvas
 
@@ -97,13 +98,53 @@ const drawBricks = () => {
 //Drawing the Score
 let score = 0;
 const drawScore = () => {
-    let score = 0;
     ctx.font = '20px Arial';
     ctx.fillText(`Score ${score}`, canvas.width - 100, 30)
 }
 
+//paddle animation
+const movePaddle = () => {
+    paddle.x += paddle.dx;
+
+//Add wall boundaries/ wall detection
+    if (paddle.x + paddle.w > canvas.width) {
+        paddle.x = canvas.width - paddle.w
+    } if (paddle.x < 0) {
+        paddle.x = 0;
+    }
+}
+
+//ball animation 
+const moveBall = () => {
+ball.x += ball.dx;
+ball.y += ball.dy;
+
+//wall detection on the sides 
+if (ball.x + ball.size > canvas.width || ball.x - ball.size < 0) {
+    ball.dx *= -1;
+}
+
+}
+
+//increase the score
+const increaseScore = () => {
+    score++;
+    if(score % (brickRowCount * brickRowCount) === 0) {
+        showAllBricks();
+    }
+}
+
+//resetting the bricks
+const showAllBricks = () => {
+    bricks.forEach(column => {
+        column.forEach(brick => brick.visible = true);
+    })
+}
+
 //Draw Everything
 const draw = () => {
+    //clearing the canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
     drawPaddle(); 
     drawScore();
@@ -112,14 +153,40 @@ const draw = () => {
 
 //updating the drawing and animation
 const update = () => {
+    //animation to move paddle 
+    movePaddle();
+    //animation to move the ball
+    moveBall();
+    //drawing everything
     draw();
 
     requestAnimationFrame(update);
 }
 
-//Add update() - Animate - 
-//move paddle
+update();
+
+//keydown animation
+const keyDown = (e) => {
+if(e.key === 'Right' || e.key === 'ArrowRight') {
+    paddle.dx = paddle.speed;
+} else if (e.key === 'Left' || e.key === 'ArrowLeft') {
+    paddle.dx = -paddle.speed;
+}
+};
+
+//keyup
+const keyUp = (e) => {
+if (e.key === 'Right' || e.key === 'ArrowRight' || e.key === 'Left' || e.key === 'ArrowLeft') {
+    paddle.dx = 0;
+} 
+}
+
+//Add keyboard eventListener 
+document.addEventListener('keydown', keyDown);
+document.addEventListener('keyup', keyUp);
+
+
 //Move ball
-//Add wall boundaries
+
 // Increase score when bricks break
 // Lose functionality/reset Score
