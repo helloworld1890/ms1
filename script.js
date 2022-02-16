@@ -211,8 +211,3 @@ if (e.key === 'Right' || e.key === 'ArrowRight' || e.key === 'Left' || e.key ===
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
 
-
-//Move ball
-
-// Increase score when bricks break
-// Lose functionality/reset Score
