@@ -145,6 +145,11 @@ bricks.forEach(column => {
         }
     });
     });
+    //Making lose game 
+    if (ball.y +  ball.size > canvas.height) {
+        showAllBricks();
+        score = 0;
+    }
 }
 
 //increase the score
