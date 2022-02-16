@@ -82,7 +82,6 @@ for (let j = 0; j < brickColumnCount; j++) {
 
 
 //showing the bricks on canvas
-
 const drawBricks = () => {
     bricks.forEach(column => {
         column.forEach(brick => {
@@ -146,10 +145,13 @@ bricks.forEach(column => {
     });
     });
     //Making lose game 
-    if (ball.y +  ball.size > canvas.height) {
+    if (ball.y + ball.size > canvas.height) {
         showAllBricks();
         score = 0;
     }
+    //finished all bricks
+ completedBricks();
+ 
 }
 
 //increase the score
@@ -165,6 +167,17 @@ const showAllBricks = () => {
     bricks.forEach(column => {
         column.forEach(brick => brick.visible = true);
     })
+}
+
+//finishing all the bricks
+const completedBricks = () => {
+    if (score === 45) {
+        showAllBricks()
+        ball.x = canvas.width / 2;
+        ball.y = canvas.height / 2;
+        score = 0;
+        prompt('You Won!');
+    }
 }
 
 //Draw Everything
@@ -211,3 +224,5 @@ if (e.key === 'Right' || e.key === 'ArrowRight' || e.key === 'Left' || e.key ===
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
 
+//getting the highest score
+//storing the highest score in the storage
