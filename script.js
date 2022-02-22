@@ -176,7 +176,7 @@ const completedBricks = () => {
     if (score === 45) {
         showAllBricks()
         ball.x = canvas.width / 2;
-        ball.y = canvas.height / 2;
+        ball.y = canvas.height / 1.1;
         score = 0;
         alert(`You Won!`);
         
@@ -201,7 +201,7 @@ const update = () => {
     moveBall();
     //drawing everything
     draw();
-
+//updating the animation
     requestAnimationFrame(update);
 }
 
