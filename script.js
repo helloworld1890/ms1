@@ -4,6 +4,7 @@ const closeBtn = document.getElementById('close-btn');
 const rules = document.getElementById('rules');
 
 
+
 //Rules and close event handlers
 rulesBtn.addEventListener('click', () => {
        rules.classList.add('show')
@@ -11,7 +12,7 @@ rulesBtn.addEventListener('click', () => {
 
 closeBtn.addEventListener('click', () => {
     rules.classList.remove('show');
-})
+});
 
 //Create canvas context
 const canvas = document.getElementById('canvas');
@@ -20,11 +21,12 @@ const ctx = canvas.getContext('2d');
 //Create and draw ball
 const ball = {
     x: canvas.width / 2,
-    y: canvas.height / 2,
+    y: canvas.height / 1.1,
     size: 10,
     speed: 4,
     dx: 4,
-    dy: -4
+    dy: -4,
+    state: false
 }
 
 const drawBall = () => {
@@ -176,7 +178,8 @@ const completedBricks = () => {
         ball.x = canvas.width / 2;
         ball.y = canvas.height / 2;
         score = 0;
-        prompt('You Won!');
+        alert(`You Won!`);
+        
     }
 }
 
@@ -204,6 +207,8 @@ const update = () => {
 
 update();
 
+
+
 //keydown animation
 const keyDown = (e) => {
 if(e.key === 'Right' || e.key === 'ArrowRight') {
@@ -224,5 +229,10 @@ if (e.key === 'Right' || e.key === 'ArrowRight' || e.key === 'Left' || e.key ===
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
 
-//getting the highest score
-//storing the highest score in the storage
+
+
+//https://developer.mozilla.org/en-US/docs/Web/API/setInterval
+//https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial
+//https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes
+////https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript
+//https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
